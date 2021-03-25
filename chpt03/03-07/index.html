@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id = 'app'>
+        <my-component1></my-component1>
+        <my-component2></my-component2>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.5.2/dist/vue.js"></script>
+    <script>
+        // 첫 번쨰 컴포넌트 내용
+        var cmp1 = {
+            template: '<div>첫 번쨰 지역 컴포넌트 : {{ cmp1Data }}</div>',
+            data: function(){
+                return{
+                    cmp1Data : 100
+                }
+            }
+        }
+
+        // 두 번쨰 컴포넌트 내용
+        var cmp2 = {
+            template: '<div>두 번쨰 지역 컴포넌트 : {{ cmp2Data }}</div>',
+            data: function(){
+                return{
+                    cmp2Data : cmp1.data.cmp1Data
+                }
+            }
+        }
+
+        new Vue({
+            el: "#app",
+            // 지역 컴포넌트 등록
+            components:{
+                'my-component1': cmp1,
+                'my-component2': cmp2
+            }
+        })
+
+    </script>
+</body>
+</html>
+
+<!-- 뷰 컴포넌트 통신 -->
+
+<!-- 뷰의 경우 컴포넌트로 화면을 구성하므로 같은 웹 페이지라도 데이터를 공유할 수 없다.
+그 이유는 컴포넌트마다 자체적으로 고유한 유효 범위를 갖기 떄문이다. 각 컴포넌트의 유효 범위가
+독립적이기 떄문에 다른 컴포넌트의 값을 직접적으로 참조할 수가 없습니다. -->
+
+<!-- 이 예제는 2개의 지역 컴포넌트를 등록하고, 다른 컴포넌트의 값을 직접 참조하는
+예제이다. 하지만 화면에서 {{ cmp2Data }}는 아무것도 표시하지 않는다. 그 이유는
+위에서도 말한것처럼 컴포넌트의 유효 범위로 인해 다른 컴포넌트의 값을 직접 접근하지
+못하기 떄문이다. 뷰에서는 미리 정의해 놓은 데이터 전달 방식에 따라 일관된 구조로
+애플리케이션을 작성하게 된다.-->
+
+<!-- 상-하위 컴포넌트 관계 -->
+<!-- 뷰에서는 자체에서 정의한 컴포넌트 데이터 전달 방법을 따라야 한다. 가장 기본적인
+데이터 전달 방법으로 상위(부모) - 하위(자식) 컴포넌트 간의 데이터 전달 방법이다.
+상위 - 하위 컴포넌트란 트리 구조에서 부모 노드, 자식 노드처럼 컴포넌트 간의 관계가 부모, 자식으로
+이루어진 컴포넌트를 의미한다. 03-2에서 배운 컴포넌트 등록 방법으로 지역 또는 전역 컴포넌트를 등록하면 등록된
+컴포넌트는 자연스럽게 하위 컴포넌트가 되빈다. 그리고 하위 컴포넌트를 등록한 인스턴스는 상위 컴포넌트가 됩니다.
+-->
+
+<!-- 상위에서 하위로는 props라는 특별한 속성을 전달한다. 그리고 하위에서는 상위로는 기본적으로 이벤트만 전달한다.-->
+
+<!-- 상위에서 하위 컴포넌트로 데이터 전달하기 
+
+    props 속성
+    props는 상위 컴포넌트에서 하위 컴포넌트로 데이터를 전달할 떄 사용하는 속성입니다. props 속성을 사용하려면
+    하위 컴포넌트의 속성에 정의합니다. 그리고 상위 컴포넌트의 HTML 코드에 등록된 컴포넌트 태그에 v-bind 속성을 추가한다.
+    
+    v-bind 속성의 왼쪽 값으로 하위 컴포넌트에서 정의한 props 속성을 넣고, 오른쪽 값으로 하위 컴포넌트에 전달할
+    상위 컴포넌트의 data 속성을 지정합니다.
+-->

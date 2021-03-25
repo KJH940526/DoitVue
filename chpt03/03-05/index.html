@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vue Sample</title>
+</head>
+<body>
+    <div id = "app">
+        <h3>첫 번째 인스턴스 영역</h3>
+        <global-tiger></global-tiger>
+        <local-tiger></local-tiger>
+    </div>
+    <div id = "app2">
+        <h3>두 번째 인스턴스 영역</h3>
+        <global-tiger></global-tiger>
+        <local-tiger>p59 사용자 정의 태그로 인식</local-tiger> 
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.5.2/dist/vue.js"></script>
+    <script>
+        //전역 컴포넌트 등록
+        Vue.component('global-tiger',{
+            template: '<div>전역 컴포넌트 입니다</div>'
+        })
+        //지역 컴포넌트 내용
+        var cmp = {
+            template: '<div>지역 컴포넌트 입니다</div>'
+        }
+
+        new Vue({
+            el: '#app',
+            components:{ // 지역 컴포넌트 등록
+                'local-tiger': cmp
+            }
+        })
+        
+        new Vue({
+            el: '#app2',  //el 태그로 app2를 지정해줬는데 app2에는 컴포넌트를 가지고 있지 않음..
+            // components:{
+            //     'local-tiger': cmp
+            // }
+        });
+
+
+    </script>
+</body>
+</html>
+
+<!-- 지역 컴포넌트와 전역 컴포넌트의 차이-->

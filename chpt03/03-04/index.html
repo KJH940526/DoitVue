@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vue Sample</title>
+</head>
+<body>
+    <div id = "app">
+        <button>지역 컴포넌트 등록</button>
+        <my-local-tiger></my-local-tigerr>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.5.2/dist/vue.js"></script>
+    <script>
+        var cmp = {
+            // 컴포넌트 내용
+            template: '<div>지역 컴포넌트</div>'
+        }
+
+
+        new Vue({
+            el: '#app',
+            components : {
+                'my-local-tiger' : cmp
+            }   //컴포넌트 이름   : 컴포넌트 내용
+        })
+    </script>
+</body>
+</html>
+
+<!-- 지역 컴포넌트 등록은 전역 컴포넌트 등록과 다르게 인스턴스에 components 속성을 추가하고 등록할 
+    컴포넌트 이름과 내용을 정의해야 한다. -->
+

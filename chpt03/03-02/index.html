@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vue Sample</title>
+</head>
+<body>
+    <div id = "app">
+        {{ tiger }}
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.5.2/dist/vue.js"></script>
+    <script>
+        new Vue({       // 1) 화면을 표시하기 위해 new Vue()로 뷰 인스턴스를 생성
+            el: '#app', // #id선택자 el속성으로 뷰 인스턴스가 그려질 지점을 지정한다.
+            data: {     // data 속성에 tiger 값을 새롭게 정의하여 화면에 {{ message }}에 연결
+                tiger: 'Hello'
+            },
+            beforeCreate() {
+                console.log("비포크리에이티드");
+            },
+            created() {
+                console.log("크리에이티드");
+            },
+            mounted() {
+                console.log("마운티드");
+                this.tiger = '바보'   //메세지 값 변경
+            },
+            updated() {
+                console.log("업데이티드"); 
+            },
+        });
+    </script>
+</body>
+</html>
+
+<!-- 뷰 인스턴스 라이프 사이클
+
+인스턴스가 생성되었을 떄 인스턴스의 상태에 따라 호출할 수 있는 속성들을 라이프 사이클 속성이라고 한다. 그리고
+각 라이프 사이클 속성에서 실행되는 커스텀 로직을 라이프 사이클 훅이라고 합니다. (커스텀 로직: 개발자가 임의로 작성한 추가 로직)
+인스턴스가 생성되고 나서 화면에 인스턴스가 부착!!된 후 소멸되기까지의 흐름을 크게 나누면 인스턴스의 생성!, 생성된 인스턴스
+를 화면에 부탁!!, 화면에 부착된 인스턴스의 내용이 갱신!!, 인스턴스가 제거되는 소멸의 4단계로 이루어진다.
+-->
+
+<!-- mounted 단계에서 데이터를 벼경했기 때문에 beforeUpdate, updated 단계에 정의한 로직이 모두 작동하였다.
+-->
